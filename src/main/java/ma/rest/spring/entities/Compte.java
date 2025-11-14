@@ -6,14 +6,14 @@ import java.util.Date;
 
 @Entity
 public class Compte {
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double solde;
-    
+
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
-    
+
     @Enumerated(EnumType.STRING)
     private TypeCompte type;
 
@@ -74,4 +74,3 @@ public class Compte {
                 '}';
     }
 }
-

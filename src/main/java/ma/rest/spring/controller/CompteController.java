@@ -5,11 +5,10 @@ import ma.rest.spring.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/banque")
 public class CompteController {
@@ -33,13 +32,8 @@ public class CompteController {
 
     // CREATE: Ajouter un nouveau compte (JSON et XML)
     @PostMapping(value = "/comptes", consumes = { "application/json", "application/xml" }, produces = { "application/json", "application/xml" })
-    public ResponseEntity<Compte> createCompte(@RequestBody Compte compte) {
-        Compte savedCompte = compteRepository.save(compte);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedCompte.getId())
-                .toUri();
-        return ResponseEntity.created(location).body(savedCompte);
+    public Compte createCompte(@RequestBody Compte compte) {
+        return compteRepository.save(compte);
     }
 
     // UPDATE: Mettre à jour un compte existant (JSON et XML)
@@ -65,4 +59,3 @@ public class CompteController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 }
-
